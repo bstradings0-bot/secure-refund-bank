@@ -1,0 +1,337 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// PostgreSQL: enums stored as native types
+
+model User {
+  id              String    @id @default(uuid())
+  email           String    @unique
+  password        String
+  firstName       String
+  lastName        String
+  phone           String?
+  country         String    @default("US")
+  role            String    @default("USER")
+  kycStatus       String    @default("NOT_SUBMITTED")
+  kycSubmittedAt  DateTime?
+  kycVerifiedAt   DateTime?
+  kycAdminId      String?
+  riskScore       Int       @default(0)
+  amlChecked      Boolean   @default(false)
+  amlCheckedAt    DateTime?
+  stripeCustomerId String?
+  address         String?
+  city            String?
+  state           String?
+  postalCode      String?
+  dateOfBirth     DateTime?
+  idDocumentType  String?
+  idDocumentNumber String?
+  emailVerified   Boolean   @default(false)
+  twoFactorEnabled Boolean  @default(false)
+  suspended       Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([email])
+  @@index([role])
+  @@index([createdAt])
+  @@index([kycStatus])
+
+  account         Account?
+  cards           VirtualCard[]
+  sentTransactions     Transaction[]   @relation("Sender")
+  receivedTransactions Transaction[]   @relation("Receiver")
+  notifications   Notification[]
+  activityLogs    ActivityLog[]
+  otps            Otp[]
+  refundRequests  RefundRequest[]
+  kycDocuments    KycDocument[]
+  bankAccounts    BankAccount[]
+  wallets         Wallet[]
+  disputes        Dispute[]
+}
+
+model Account {
+  id             String        @id @default(uuid())
+  userId         String        @unique
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountNumber  String        @unique
+  balance        Float         @default(0.00)
+  savingsBalance Float         @default(0.00)
+  currency       String        @default("USD")
+  status         String        @default("ACTIVE")
+  createdAt      DateTime      @default(now())
+  cards          VirtualCard[]
+}
+
+model KycDocument {
+  id            String          @id @default(uuid())
+  userId        String
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documentType  String
+  fileName      String
+  fileUrl       String
+  fileSize      Int
+  status        String          @default("PENDING")
+  reviewerId    String?
+  reviewerNotes String?
+  rejectionReason String?
+  submittedAt   DateTime        @default(now())
+  reviewedAt    DateTime?
+  createdAt     DateTime        @default(now())
+}
+
+model BankAccount {
+  id                String   @id @default(uuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  institutionName   String
+  institutionId     String?
+  maskedAccountNumber String
+  accountNumber     String   // Encrypted
+  routingNumber     String   // Encrypted
+  accountType       String   @default("checking")
+  plaidAccessToken  String   // Encrypted
+  plaidItemId       String?
+  isVerified        Boolean  @default(false)
+  isPrimary         Boolean  @default(false)
+  status            String   @default("ACTIVE")
+  linkedAt          DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  withdrawals       Transaction[]       @relation("BankAccountWithdrawal")
+}
+
+model Wallet {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  currency  String   @default("USD")
+  balance   Float    @default(0.00)
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VirtualCard {
+  id            String     @id @default(uuid())
+  accountId     String
+  account       Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cardType      String     @default("VISA")
+  cardNumber    String
+  cvv           String
+  expiryDate    String
+  cardholderName String
+  cardLabel     String?
+  balance       Float      @default(0.00)
+  status        String     @default("ACTIVE")
+  spendingLimit Float      @default(10000.00)
+  colorTheme    String     @default("blue")
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([cardType])
+  @@index([createdAt])
+}
+
+model Transaction {
+  id              String            @id @default(uuid())
+  senderId        String
+  sender          User              @relation("Sender", fields: [senderId], references: [id])
+  receiverId      String
+  receiver        User              @relation("Receiver", fields: [receiverId], references: [id])
+  amount          Float
+  currency        String            @default("USD")
+  type            String            @default("INTERNAL")
+  status          String            @default("COMPLETED")
+  referenceNumber String            @unique
+  description     String?
+  reason          String?
+  providerReferenceId String?       // Stripe PaymentIntent ID, Wise transfer ID
+  bankAccountId   String?           // For withdrawals to linked bank accounts
+  bankAccount     BankAccount?      @relation("BankAccountWithdrawal", fields: [bankAccountId], references: [id])
+  feeAmount       Float             @default(0.00)
+  timestamp       DateTime          @default(now())
+  refundRequest   RefundRequest?
+  disputes        Dispute[]
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([status])
+  @@index([timestamp(sort: Desc)])
+  @@index([referenceNumber])
+  @@index([type])
+}
+
+model RefundRequest {
+  id            String        @id @default(uuid())
+  transactionId String        @unique
+  transaction   Transaction   @relation(fields: [transactionId], references: [id])
+  userId        String
+  user          User          @relation(fields: [userId], references: [id])
+  amount        Float
+  reason        String
+  status        String        @default("PENDING")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      String           @default("SYSTEM")
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  @@index([userId])
+  @@index([read])
+  @@index([createdAt(sort: Desc)])
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action    String
+  ipAddress String?
+  userAgent String?
+  metadata  String?  // JSON string for additional context
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt(sort: Desc)])
+}
+
+model ComplianceLog {
+  id              String    @id @default(uuid())
+  userId          String?
+  transactionId   String?
+  action          String    // AML_CHECK, RISK_ASSESSMENT, SUSPICIOUS_FLAG, SAR_FILED
+  riskLevel       String    @default("LOW")
+  riskScore       Int       @default(0)
+  details         String?   // JSON string with check details
+  triggeredBy     String?   // Admin ID or SYSTEM
+  actionTaken     String?
+  isResolved      Boolean   @default(false)
+  resolvedAt      DateTime?
+  resolvedBy      String?
+  createdAt       DateTime  @default(now())
+}
+
+model WebhookEvent {
+  id              String    @id @default(uuid())
+  provider        String    // STRIPE, PLAID, WISE
+  eventType       String    // e.g., payment_intent.succeeded
+  eventId         String    @unique // Provider's event ID for idempotency
+  payload         String    // Raw JSON payload
+  status          String    @default("RECEIVED") // RECEIVED, PROCESSING, PROCESSED, FAILED
+  processedAt     DateTime?
+  errorMessage    String?
+  retryCount      Int       @default(0)
+  createdAt       DateTime  @default(now())
+}
+
+model Dispute {
+  id              String        @id @default(uuid())
+  transactionId   String
+  transaction     Transaction   @relation(fields: [transactionId], references: [id])
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
+  reason          String
+  description     String?
+  evidenceUrl     String?       // URL to uploaded evidence
+  status          String        @default("OPEN")
+  adminNotes      String?
+  resolution      String?
+  resolvedAt      DateTime?
+  resolvedBy      String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model FeeRecord {
+  id              String   @id @default(uuid())
+  transactionId   String?
+  userId          String
+  feeType         String   // DEPOSIT_FEE, WITHDRAWAL_FEE, TRANSFER_FEE, CARD_FEE, FX_FEE
+  amount          Float
+  currency        String   @default("USD")
+  description     String?
+  createdAt       DateTime @default(now())
+}
+
+model Otp {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code      String
+  type      String   @default("EMAIL")
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Announcement {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  summary   String?
+  category  String   @default("GENERAL")
+  imageUrl  String?
+  priority  String   @default("NORMAL")
+  active    Boolean  @default(true)
+  createdBy String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  phone     String?
+  company   String?
+  status    String   @default("UNREAD")
+  repliedAt DateTime?
+  replyText String?
+  createdAt DateTime @default(now())
+}
+
+model QuoteRequest {
+  id           String   @id @default(uuid())
+  companyName  String
+  contactName  String
+  email        String
+  phone        String?
+  industry     String?
+  requirements String
+  budget       String?
+  timeline     String?
+  employeeCount String?
+  status       String   @default("NEW")
+  adminNotes   String?
+  respondedAt  DateTime?
+  createdAt    DateTime @default(now())
+}

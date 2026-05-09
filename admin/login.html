@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SecureRefund Bank — Administrative Access Portal">
+  <title>Admin Login — SecureRefund Bank</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Admin-specific overrides */
+    :root {
+      --admin-red: #EF4444;
+      --admin-orange: #F97316;
+      --admin-gradient: linear-gradient(135deg, var(--admin-red), var(--admin-orange));
+    }
+    .admin-bg {
+      background: radial-gradient(ellipse 60% 50% at 30% 20%, rgba(239,68,68,0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 40% at 70% 80%, rgba(249,115,22,0.05) 0%, transparent 60%);
+    }
+    .admin-logo-icon {
+      background: var(--admin-gradient) !important;
+      box-shadow: 0 8px 24px rgba(239,68,68,0.3) !important;
+    }
+    .btn-admin {
+      background: var(--admin-gradient) !important;
+      box-shadow: 0 4px 20px rgba(239,68,68,0.35) !important;
+    }
+    .btn-admin:hover {
+      box-shadow: 0 8px 30px rgba(239,68,68,0.5) !important;
+    }
+    .restricted-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 20px;
+      background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25);
+      color: #fca5a5; font-size: 0.75rem; font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .restricted-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #EF4444;
+      animation: pulse 2s ease infinite;
+    }
+    .admin-link {
+      color: #fca5a5; text-decoration: none; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .admin-link:hover { color: #fecaca; text-decoration: underline; }
+
+    /* Dashboard preview cards */
+    .dash-preview {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px;
+      margin-top: 20px; margin-bottom: 20px;
+    }
+    .dp-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 16px; text-align: center;
+    }
+    .dp-card .dp-val { font-size: 1.4rem; font-weight: 800; color: var(--white); display: block; }
+    .dp-card .dp-lbl { font-size: 0.7rem; color: var(--gray-500); margin-top: 2px; }
+
+    .admin-links-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;
+    }
+    .al-card {
+      display: block; padding: 14px; border-radius: 12px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      color: var(--gray-300); text-decoration: none; font-size: 0.82rem;
+      font-weight: 500; transition: all 0.25s;
+    }
+    .al-card:hover {
+      background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.25);
+      color: var(--white); transform: translateY(-2px);
+    }
+    .al-card .al-icon { font-size: 1.1rem; margin-right: 6px; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="auth-section">
+    <div class="auth-bg admin-bg"></div>
+    <div class="auth-container">
+
+      <!-- ============================================================ -->
+      <!--  LOGIN FORM (default visible)                                -->
+      <!-- ============================================================ -->
+      <div id="loginView">
+        <div class="glass auth-card">
+          <!-- Header -->
+          <div class="auth-header">
+            <div class="auth-logo-icon admin-logo-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div class="restricted-badge">
+              <span class="dot"></span> Restricted Area — Authorized Personnel Only
+            </div>
+            <h1>Admin Panel Login</h1>
+            <p>SecureRefund Bank administrative access. All login attempts are logged and monitored.</p>
+          </div>
+
+          <!-- Error Alert -->
+          <div id="loginError" class="form-alert form-alert-error" style="display:none; margin-bottom:16px;"></div>
+
+          <!-- Form -->
+          <form id="adminLoginForm" class="auth-form" novalidate>
+            <div class="form-group">
+              <label for="adminEmail">Admin Email <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+                <input type="email" id="adminEmail" placeholder="admin@securebank.com" autocomplete="email" required autofocus>
+              </div>
+              <span class="form-error" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="adminPassword">Password <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                <input type="password" id="adminPassword" placeholder="Enter admin password" autocomplete="current-password" required>
+                <button type="button" class="toggle-password" id="togglePw" aria-label="Toggle password visibility">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <span class="form-error" id="passwordError"></span>
+            </div>
+
+            <button type="submit" class="btn-primary btn-block btn-lg btn-admin" id="loginBtn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span id="loginBtnText">Access Admin Panel</span>
+              <svg id="loginSpinner" class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            </button>
+          </form>
+
+          <!-- Links -->
+          <div class="auth-footer-text" style="margin-top:20px;">
+            <a href="../login.html" style="color:var(--gray-500);">← Return to user login</a>
+          </div>
+
+          <!-- Demo hint -->
+          <div style="margin-top:20px; padding:14px; border-radius:12px; background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.12); text-align:center;">
+            <p style="font-size:0.75rem; color:var(--gray-500); margin:0;">
+              <span style="color:var(--gray-400);">Demo admin:</span>
+              <code style="color:#fca5a5; background:rgba(239,68,68,0.1); padding:2px 6px; border-radius:4px;">admin@securebank.com</code>
+              <span style="color:var(--gray-600);">/</span>
+              <code style="color:#fca5a5; background:rgba(239,68,68,0.1); padding:2px 6px; border-radius:4px;">Admin123!</code>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!--  SUCCESS / DASHBOARD LINKS (hidden initially)                -->
+      <!-- ============================================================ -->
+      <div id="successView" style="display:none;">
+        <div class="glass auth-card">
+          <div class="auth-success">
+            <div class="success-icon">&#10003;</div>
+            <h2>Admin Access Granted</h2>
+            <p id="welcomeMsg" style="margin-bottom: 16px;"></p>
+
+            <!-- Quick Stats Preview -->
+            <div class="dash-preview" id="dashPreview"></div>
+
+            <!-- Admin Navigation Links -->
+            <p style="font-size:0.75rem; color:var(--gray-500); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">Admin Dashboard Pages</p>
+            <div class="admin-links-grid">
+              <a href="#" class="al-card" data-href="/admin" onclick="navigateTo(event, this)">
+                <span class="al-icon">📊</span> Dashboard Overview
+              </a>
+              <a href="#" class="al-card" data-href="/admin/users" onclick="navigateTo(event, this)">
+                <span class="al-icon">👥</span> User Management
+              </a>
+              <a href="#" class="al-card" data-href="/admin/transactions" onclick="navigateTo(event, this)">
+                <span class="al-icon">💳</span> All Transactions
+              </a>
+              <a href="#" class="al-card" data-href="/admin/login" onclick="navigateTo(event, this)">
+                <span class="al-icon">🔒</span> Admin Login Page
+              </a>
+            </div>
+
+            <p style="font-size:0.7rem; color:var(--gray-600); margin-top:20px;">
+              <em>The admin panel runs on the Next.js frontend (port 3000).<br>Ensure the development server is running.</em>
+            </p>
+
+            <button onclick="handleLogout()" class="btn-secondary btn-block btn-lg" style="margin-top: 20px; background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.25);">
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  SCRIPT                                                      -->
+  <!-- ============================================================ -->
+  <script>
+    (function() {
+      // ---- Configuration ----
+      var API_BASE = (function() {
+        var stored = localStorage.getItem('srb_api_base');
+        if (stored) return stored;
+        var host = window.location.hostname;
+        // If served from same host as API, use relative; else default to localhost:4000
+        if (host === 'localhost' && window.location.port === '4000') return '';
+        return 'http://localhost:4000';
+      })();
+
+      var NEXTJS_BASE = (function() {
+        var host = window.location.hostname;
+        if (host === 'localhost' && window.location.port === '3000') return '';
+        return 'http://localhost:3000';
+      })();
+
+      // ---- DOM refs ----
+      var loginView = document.getElementById('loginView');
+      var successView = document.getElementById('successView');
+      var loginError = document.getElementById('loginError');
+      var emailError = document.getElementById('emailError');
+      var passwordError = document.getElementById('passwordError');
+      var loginForm = document.getElementById('adminLoginForm');
+      var loginBtn = document.getElementById('loginBtn');
+      var loginBtnText = document.getElementById('loginBtnText');
+      var loginSpinner = document.getElementById('loginSpinner');
+      var welcomeMsg = document.getElementById('welcomeMsg');
+      var dashPreview = document.getElementById('dashPreview');
+      var togglePwBtn = document.getElementById('togglePw');
+      var adminEmail = document.getElementById('adminEmail');
+      var adminPassword = document.getElementById('adminPassword');
+
+      // ---- Toggle password visibility ----
+      togglePwBtn.addEventListener('click', function() {
+        var isPass = adminPassword.type === 'password';
+        adminPassword.type = isPass ? 'text' : 'password';
+        togglePwBtn.innerHTML = isPass
+          ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+          : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+      });
+
+      // ---- Validation ----
+      function clearErrors() {
+        loginError.style.display = 'none';
+        emailError.textContent = '';
+        passwordError.textContent = '';
+        adminEmail.classList.remove('input-error');
+        adminPassword.classList.remove('input-error');
+      }
+
+      function showFieldError(field, el, msg) {
+        if (el === 'email') {
+          emailError.textContent = msg;
+          adminEmail.classList.add('input-error');
+        } else {
+          passwordError.textContent = msg;
+          adminPassword.classList.add('input-error');
+        }
+      }
+
+      function validate() {
+        clearErrors();
+        var valid = true;
+        var email = adminEmail.value.trim();
+
+        if (!email) {
+          showFieldError('email', null, 'Admin email is required');
+          valid = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showFieldError('email', null, 'Please enter a valid email address');
+          valid = false;
+        }
+
+        if (!adminPassword.value) {
+          showFieldError('password', null, 'Password is required');
+          valid = false;
+        } else if (adminPassword.value.length < 8) {
+          showFieldError('password', null, 'Password must be at least 8 characters');
+          valid = false;
+        }
+
+        return valid;
+      }
+
+      // ---- Submit ----
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!validate()) return;
+
+        setLoading(true);
+
+        var payload = {
+          email: adminEmail.value.trim(),
+          password: adminPassword.value,
+        };
+
+        fetch(API_BASE + '/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+        .then(function(res) {
+          return res.json().then(function(data) {
+            if (!res.ok) {
+              throw new Error(data.message || 'Admin authentication failed (HTTP ' + res.status + ')');
+            }
+            return data;
+          });
+        })
+        .then(function(data) {
+          if (!data.success) {
+            throw new Error(data.message || 'Admin authentication failed');
+          }
+
+          // Store tokens and user info
+          if (data.data.accessToken) {
+            localStorage.setItem('accessToken', data.data.accessToken);
+            localStorage.setItem('refreshToken', data.data.refreshToken);
+            localStorage.setItem('user', JSON.stringify(data.data.user));
+            localStorage.setItem('srb_api_base', API_BASE);
+          }
+
+          showSuccess(data.data.user);
+        })
+        .catch(function(err) {
+          setLoading(false);
+          loginError.textContent = err.message || 'Connection failed. Is the backend running on ' + API_BASE + '?';
+          loginError.style.display = 'block';
+          console.error('Admin login error:', err);
+        });
+      });
+
+      function setLoading(loading) {
+        loginBtn.disabled = loading;
+        loginBtnText.style.display = loading ? 'none' : 'inline';
+        loginSpinner.style.display = loading ? 'inline' : 'none';
+      }
+
+      // ---- Success View ----
+      function showSuccess(user) {
+        loginView.style.display = 'none';
+        successView.style.display = 'block';
+        welcomeMsg.textContent = 'Welcome, ' + (user.firstName || 'Admin') + ' ' + (user.lastName || '') + '. You are now authenticated as an administrator.';
+
+        // Load dashboard stats
+        loadDashboardPreview();
+      }
+
+      function loadDashboardPreview() {
+        var token = localStorage.getItem('accessToken');
+        if (!token) return;
+
+        fetch(API_BASE + '/api/admin/analytics', {
+          headers: { 'Authorization': 'Bearer ' + token },
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.success && d.data) {
+            var a = d.data;
+            dashPreview.innerHTML =
+              '<div class="dp-card"><span class="dp-val">' + (a.totalUsers || 0) + '</span><span class="dp-lbl">Total Users</span></div>' +
+              '<div class="dp-card"><span class="dp-val">' + (a.totalTransactions || 0) + '</span><span class="dp-lbl">Transactions</span></div>' +
+              '<div class="dp-card"><span class="dp-val">' + (a.activeCards || 0) + '</span><span class="dp-lbl">Active Cards</span></div>' +
+              '<div class="dp-card"><span class="dp-val">' + (a.pendingRefunds || 0) + '</span><span class="dp-lbl">Pending Refunds</span></div>';
+          } else {
+            dashPreview.innerHTML = '<p style="color:var(--gray-500);font-size:0.8rem;">Could not load dashboard stats. Backend may be offline.</p>';
+          }
+        })
+        .catch(function() {
+          dashPreview.innerHTML = '<p style="color:var(--gray-500);font-size:0.8rem;">Dashboard data unavailable. Check API connection.</p>';
+        });
+      }
+
+      // ---- Navigation ----
+      window.navigateTo = function(event, el) {
+        event.preventDefault();
+        var href = el.getAttribute('data-href');
+        // Try Next.js app first
+        var url = NEXTJS_BASE ? NEXTJS_BASE + href : href;
+        window.open(url, '_blank');
+      };
+
+      // ---- Logout ----
+      window.handleLogout = function() {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('user');
+        loginView.style.display = 'block';
+        successView.style.display = 'none';
+        adminEmail.value = '';
+        adminPassword.value = '';
+        clearErrors();
+      };
+
+      // ---- Check existing session on load ----
+      (function checkSession() {
+        var stored = localStorage.getItem('user');
+        var token = localStorage.getItem('accessToken');
+        if (stored && token) {
+          try {
+            var user = JSON.parse(stored);
+            if (user.role === 'ADMIN') {
+              showSuccess(user);
+            }
+          } catch(e) {}
+        }
+      })();
+    })();
+  </script>
+
+</body>
+</html>

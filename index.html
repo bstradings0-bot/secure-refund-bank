@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SecureRefund Bank — Modern digital banking platform with virtual cards, instant transfers, refund tracking, and enterprise-grade security.">
+  <title>SecureRefund Bank — Modern Digital Banking</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============================================================ -->
+  <!--  NAVBAR                                                       -->
+  <!-- ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span>Secure<span class="logo-accent">Refund</span></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#security">Security</a>
+        <a href="#refund">Refund Center</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a href="admin/login.html" class="btn-ghost" style="color:#fca5a5;">Admin</a>
+        <a href="login.html" class="btn-ghost">Log in</a>
+        <a href="register.html" class="btn-primary btn-sm">Open Account</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================================================ -->
+  <!--  HERO                                                         -->
+  <!-- ============================================================ -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span> Trusted by 2M+ users worldwide
+        </div>
+        <h1>Modern Digital Banking Made <span class="gradient-text">Secure</span></h1>
+        <p class="hero-sub">Manage transfers, virtual cards, refunds, and online banking in one powerful platform. Built with enterprise-grade security and real-time intelligence.</p>
+        <div class="hero-btns">
+          <a href="register.html" class="btn-primary btn-lg">Open Account <span class="arrow">&rarr;</span></a>
+          <a href="login.html" class="btn-secondary btn-lg">Log in</a>
+          <a href="#features" class="btn-ghost btn-lg">Explore Features <span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="hero-checks">
+          <span><i class="check">&#10003;</i> No hidden fees</span>
+          <span><i class="check">&#10003;</i> Free virtual cards</span>
+          <span><i class="check">&#10003;</i> Instant transfers</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="floating-card visa-card">
+          <span class="card-chip">CHIP</span>
+          <span class="card-type">VISA</span>
+          <span class="card-number">•••• 4892</span>
+          <span class="card-name">Sarah Johnson</span>
+          <span class="card-expiry">12/28</span>
+        </div>
+        <div class="floating-card premium-card">
+          <span class="card-chip">CHIP</span>
+          <span class="card-type">BLACK</span>
+          <span class="card-number">•••• 7823</span>
+          <span class="card-name">Michael Chen</span>
+          <span class="card-expiry">06/27</span>
+        </div>
+        <div class="dashboard-mockup">
+          <div class="mock-header">
+            <span class="mock-label">DASHBOARD</span>
+            <span class="mock-badge live">● LIVE</span>
+          </div>
+          <div class="mock-balance">
+            <span class="mock-balance-label">TOTAL BALANCE</span>
+            <span class="mock-balance-value">$24,580<span class="mock-cents">.00</span></span>
+          </div>
+          <div class="mock-stats">
+            <div class="mock-stat up"><span>&#9650; Income</span><span>$8,240</span></div>
+            <div class="mock-stat down"><span>&#9660; Spending</span><span>$3,120</span></div>
+          </div>
+          <div class="mock-txns">
+            <div class="mock-txn"><span>Emma W. — Transfer</span><span class="t-up">+$450</span></div>
+            <div class="mock-txn"><span>Netflix — Card</span><span class="t-down">−$14.99</span></div>
+            <div class="mock-txn"><span>Refund — Amazon</span><span class="t-up">+$89.00</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  FEATURES                                                     -->
+  <!-- ============================================================ -->
+  <section class="section" id="features">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Features</span>
+        <h2>Everything You Need to Bank Smarter</h2>
+        <p>From virtual cards to real-time analytics, SecureRefund delivers enterprise-grade banking tools for the modern world.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feat-icon" style="--c1:#8B5CF6;--c2:#A855F7"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3>Virtual Cards</h3><p>Generate Visa, Mastercard, or Premium Black cards instantly. Freeze, unfreeze, and manage limits.</p></div>
+        <div class="feature-card"><div class="feat-icon" style="--c1:#3B82F6;--c2:#06B6D4"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div><h3>Instant Transfers</h3><p>Send money globally via SWIFT, ACH, crypto, or mobile. Real-time tracking and notifications.</p></div>
+        <div class="feature-card"><div class="feat-icon" style="--c1:#10B981;--c2:#14B8A6"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h3>Smart Dashboard</h3><p>Premium analytics with spending insights, charts, and financial health monitoring.</p></div>
+        <div class="feature-card"><div class="feat-icon" style="--c1:#F97316;--c2:#EAB308"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg></div><h3>Refund Tracking</h3><p>Submit, track, and manage refund requests with real-time status updates.</p></div>
+        <div class="feature-card"><div class="feat-icon" style="--c1:#EC4899;--c2:#F43F5E"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div><h3>Real-Time Alerts</h3><p>Instant push notifications for transactions, security events, and account activity.</p></div>
+        <div class="feature-card"><div class="feat-icon" style="--c1:#6366F1;--c2:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><h3>Bank-Grade Security</h3><p>JWT authentication, bcrypt encryption, CSRF protection, and 2FA verification.</p></div>
+        <a href="admin/login.html" class="feature-card" style="text-decoration:none;"><div class="feat-icon" style="--c1:#EF4444;--c2:#F97316"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Admin Controls</h3><p>Comprehensive admin panel for user management, crediting, debiting, and monitoring. <span style="color:#fca5a5;font-weight:600;">Access →</span></p></a>
+        <div class="feature-card"><div class="feat-icon" style="--c1:#06B6D4;--c2:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div><h3>Multi-Currency</h3><p>Support for USD, EUR, GBP, crypto, and more with real-time exchange rates.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  PRICING                                                      -->
+  <!-- ============================================================ -->
+  <section class="section" id="pricing">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag accent">Pricing</span>
+        <h2>Simple, Transparent Pricing</h2>
+        <p>Choose the plan that fits your needs. No hidden fees, no surprises.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Starter</h3>
+          <div class="price"><span class="amount">Free</span><span class="period">forever</span></div>
+          <p>Perfect for getting started with digital banking.</p>
+          <ul>
+            <li>&#10003; 1 Virtual Card</li>
+            <li>&#10003; Basic Dashboard</li>
+            <li>&#10003; Internal Transfers</li>
+            <li>&#10003; Email Support</li>
+            <li>&#10003; USD Currency</li>
+          </ul>
+          <a href="register.html" class="btn-secondary btn-block">Get Started</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="popular-badge">MOST POPULAR</div>
+          <h3>Professional</h3>
+          <div class="price"><span class="amount">$9.99</span><span class="period">/month</span></div>
+          <p>For professionals who need more power and flexibility.</p>
+          <ul>
+            <li>&#10003; 10 Virtual Cards</li>
+            <li>&#10003; Advanced Analytics</li>
+            <li>&#10003; All Transfer Types</li>
+            <li>&#10003; Priority Support</li>
+            <li>&#10003; Multi-Currency</li>
+            <li>&#10003; Refund Management</li>
+            <li>&#10003; Card Controls</li>
+          </ul>
+          <a href="register.html" class="btn-primary btn-block">Start Free Trial</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Enterprise</h3>
+          <div class="price"><span class="amount">$29.99</span><span class="period">/month</span></div>
+          <p>For teams and businesses with advanced banking needs.</p>
+          <ul>
+            <li>&#10003; Unlimited Virtual Cards</li>
+            <li>&#10003; Admin Panel Access</li>
+            <li>&#10003; API Integration</li>
+            <li>&#10003; Dedicated Support</li>
+            <li>&#10003; All Currencies</li>
+            <li>&#10003; Custom Limits</li>
+            <li>&#10003; Audit Logs</li>
+            <li>&#10003; Team Management</li>
+          </ul>
+          <a href="#contact" class="btn-secondary btn-block">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  ANALYTICS / STATS                                            -->
+  <!-- ============================================================ -->
+  <section class="section stats-section">
+    <div class="section-inner">
+      <div class="stats-card">
+        <div class="section-header">
+          <h2>Trusted at Scale</h2>
+          <p>Powering millions of transactions across the globe</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-item"><span class="stat-icon">&#128101;</span><span class="stat-value counter" data-target="2400000">0</span><span class="stat-label">Active Users</span></div>
+          <div class="stat-item"><span class="stat-icon">&#128176;</span><span class="stat-value counter" data-target="48.2" data-prefix="$" data-suffix="B" data-decimals="1">0</span><span class="stat-label">Transfer Volume</span></div>
+          <div class="stat-item"><span class="stat-icon">&#128200;</span><span class="stat-value counter" data-target="99.99" data-suffix="%" data-decimals="2">0</span><span class="stat-label">Uptime SLA</span></div>
+          <div class="stat-item"><span class="stat-icon">&#128179;</span><span class="stat-value counter" data-target="8500000">0</span><span class="stat-label">Virtual Cards Issued</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  HOW IT WORKS                                                -->
+  <!-- ============================================================ -->
+  <section class="section" id="how-it-works">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag accent">How It Works</span>
+        <h2>Get Started in 3 Simple Steps</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-num">01</span>
+          <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <h3>Create Account</h3>
+          <p>Sign up in under 2 minutes with email verification. No paperwork, no hidden fees.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">02</span>
+          <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+          <h3>Manage Banking</h3>
+          <p>Access your dashboard, generate virtual cards, and monitor your finances in real time.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">03</span>
+          <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+          <h3>Send &amp; Track</h3>
+          <p>Transfer funds globally, submit refund requests, and track everything from one place.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  VIRTUAL CARD SHOWCASE                                       -->
+  <!-- ============================================================ -->
+  <section class="section" id="cards">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Virtual Cards</span>
+        <h2>Premium Cards for Every Need</h2>
+        <p>Generate virtual Visa, Mastercard, or Premium Black Cards with instant activation and full control.</p>
+      </div>
+      <div class="cards-showcase">
+        <div class="showcase-card visa-theme">
+          <div class="sc-inner">
+            <div class="sc-top"><span>Virtual Card</span><span class="sc-type">VISA</span></div>
+            <div class="sc-chip">&#9673;&#9673;&#9673;&#9673;</div>
+            <div class="sc-number">•••• •••• •••• 4892</div>
+            <div class="sc-bottom"><div><small>CARD HOLDER</small><br>Sarah Johnson</div><div><small>EXPIRES</small><br>12/28</div></div>
+          </div>
+          <p class="disclaimer">For demonstration purposes only. Not real financial cards.</p>
+        </div>
+        <div class="showcase-card mastercard-theme">
+          <div class="sc-inner">
+            <div class="sc-top"><span>Virtual Card</span><span class="sc-type">MASTERCARD</span></div>
+            <div class="sc-chip">&#9673;&#9673;&#9673;&#9673;</div>
+            <div class="sc-number">•••• •••• •••• 3156</div>
+            <div class="sc-bottom"><div><small>CARD HOLDER</small><br>Michael Chen</div><div><small>EXPIRES</small><br>06/27</div></div>
+          </div>
+          <p class="disclaimer">For demonstration purposes only. Not real financial cards.</p>
+        </div>
+        <div class="showcase-card premium-theme">
+          <div class="sc-inner">
+            <div class="sc-top"><span>Platinum</span><span class="sc-type">BLACK</span></div>
+            <div class="sc-chip">&#9673;&#9673;&#9673;&#9673;</div>
+            <div class="sc-number">•••• •••• •••• 7823</div>
+            <div class="sc-bottom"><div><small>CARD HOLDER</small><br>Emma Williams</div><div><small>EXPIRES</small><br>03/29</div></div>
+          </div>
+          <p class="disclaimer">For demonstration purposes only. Not real financial cards.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  TRANSFER SECTION                                            -->
+  <!-- ============================================================ -->
+  <section class="section" id="transfer">
+    <div class="section-inner">
+      <div class="transfer-grid">
+        <div class="transfer-info">
+          <span class="section-tag">Transfers</span>
+          <h2>Send Money Anywhere, Instantly</h2>
+          <p>Choose from multiple transfer methods — internal, bank wire, SWIFT, crypto, or mobile money. All processed in real time with full transparency.</p>
+          <div class="transfer-types">
+            <span class="tt-badge">Internal</span>
+            <span class="tt-badge">Bank Wire</span>
+            <span class="tt-badge">SWIFT</span>
+            <span class="tt-badge">Crypto</span>
+            <span class="tt-badge">Mobile</span>
+          </div>
+          <div class="transfer-features">
+            <div><span>&#10003;</span> Zero fees on internal transfers</div>
+            <div><span>&#10003;</span> Real-time exchange rates</div>
+            <div><span>&#10003;</span> Instant confirmation</div>
+            <div><span>&#10003;</span> 24/7 transaction tracking</div>
+          </div>
+        </div>
+        <div class="transfer-mockup">
+          <div class="tm-card">
+            <div class="tm-header">Send Money</div>
+            <div class="tm-field"><label>Recipient Email</label><span>emma@example.com</span></div>
+            <div class="tm-field"><label>Amount</label><span class="tm-amount">$450.00</span></div>
+            <div class="tm-field"><label>Type</label><span>Internal Transfer</span></div>
+            <div class="tm-row"><span>Fee</span><span class="tm-free">FREE</span></div>
+            <div class="tm-row"><span>Delivery</span><span>Instant</span></div>
+            <div class="tm-btn">Confirm Transfer &rarr;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  REFUND CENTER                                                -->
+  <!-- ============================================================ -->
+  <section class="section" id="refund">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag" style="color:#F97316">Refund Center</span>
+        <h2>Hassle-Free Refund Management</h2>
+        <p>Our intelligent refund system makes it easy to request, track, and resolve refunds. Built for transparency and speed.</p>
+      </div>
+      <div class="refund-grid">
+        <div class="refund-features">
+          <div class="rf-item"><div class="rf-icon">&#10227;</div><div><h4>Easy Refund Requests</h4><p>Submit refund requests with just a few clicks. Track every step in real time.</p></div></div>
+          <div class="rf-item"><div class="rf-icon">&#128200;</div><div><h4>Real-Time Tracking</h4><p>Monitor your refund status with live updates. Know exactly where your money is.</p></div></div>
+          <div class="rf-item"><div class="rf-icon">&#128276;</div><div><h4>Instant Notifications</h4><p>Get notified the moment your refund is approved, processed, or needs action.</p></div></div>
+          <div class="rf-item"><div class="rf-icon">&#128737;</div><div><h4>Dispute Resolution</h4><p>Automated dispute handling with our intelligent resolution engine.</p></div></div>
+        </div>
+        <div class="refund-live">
+          <div class="rl-header"><h3>Active Refund Requests</h3><span class="mock-badge live">Live Demo</span></div>
+          <div class="rl-item"><div class="rli-left"><div class="rli-dot approved"></div><div><strong>Amazon.com</strong><small>REF-2024-7842</small></div></div><div class="rli-right"><span>$89.99</span><span class="status approved">Approved</span></div></div>
+          <div class="rl-item"><div class="rli-left"><div class="rli-dot processing"></div><div><strong>Netflix</strong><small>REF-2024-7831</small></div></div><div class="rli-right"><span>$15.99</span><span class="status processing">Processing</span></div></div>
+          <div class="rl-item"><div class="rli-left"><div class="rli-dot pending"></div><div><strong>Spotify</strong><small>REF-2024-7815</small></div></div><div class="rli-right"><span>$9.99</span><span class="status pending">Pending</span></div></div>
+          <div class="rl-item"><div class="rli-left"><div class="rli-dot resolved"></div><div><strong>Uber Eats</strong><small>REF-2024-7798</small></div></div><div class="rli-right"><span>$34.50</span><span class="status resolved">Resolved</span></div></div>
+          <a href="login.html" class="btn-refund">Submit a Refund Request &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  SECURITY                                                     -->
+  <!-- ============================================================ -->
+  <section class="section" id="security">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag" style="color:#10B981">Security</span>
+        <h2>Your Security Is Our Priority</h2>
+        <p>Enterprise-grade security infrastructure protecting every transaction, every account, every second.</p>
+      </div>
+      <div class="security-grid">
+        <div class="security-card"><div class="sec-icon">&#128274;</div><h3>Bank-Grade Encryption</h3><p>AES-256 encryption for all data at rest and TLS 1.3 for data in transit.</p></div>
+        <div class="security-card"><div class="sec-icon">&#128273;</div><h3>Secure Authentication</h3><p>JWT tokens with bcrypt hashing, 2FA, and biometric verification support.</p></div>
+        <div class="security-card"><div class="sec-icon">&#128200;</div><h3>Fraud Monitoring</h3><p>AI-powered real-time fraud detection with instant alerts and automated blocking.</p></div>
+        <div class="security-card"><div class="sec-icon">&#128276;</div><h3>Real-Time Protection</h3><p>24/7 monitoring, rate limiting, CSRF protection, and automated threat response.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  TESTIMONIALS                                                 -->
+  <!-- ============================================================ -->
+  <section class="section" id="testimonials">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag accent">Testimonials</span>
+        <h2>Loved by Thousands</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">&ldquo;SecureRefund completely changed how I manage international payments. The virtual cards are a game-changer for my business subscriptions.&rdquo;</p>
+          <div class="t-author"><div class="t-avatar">JR</div><div><strong>James Rodriguez</strong><small>Freelance Designer</small></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">&ldquo;I travel full-time and need a bank that works everywhere. The multi-currency support and instant transfers are incredible.&rdquo;</p>
+          <div class="t-author"><div class="t-avatar">PS</div><div><strong>Priya Sharma</strong><small>Digital Nomad</small></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">&ldquo;The admin panel gives me full control over team expenses. We issued 50 virtual cards in under 5 minutes. Enterprise-grade quality.&rdquo;</p>
+          <div class="t-author"><div class="t-avatar">DK</div><div><strong>David Kim</strong><small>Startup Founder</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  MOBILE APP                                                   -->
+  <!-- ============================================================ -->
+  <section class="section" id="mobile">
+    <div class="section-inner">
+      <div class="mobile-grid">
+        <div class="mobile-info">
+          <span class="section-tag" style="color:#A855F7">Mobile Banking</span>
+          <h2>Bank Anywhere, Anytime</h2>
+          <p>Full-featured mobile banking experience with real-time notifications, biometric login, and all the power of the web platform in your pocket.</p>
+          <ul class="mobile-features">
+            <li>&#10003; Push notifications for every transaction</li>
+            <li>&#10003; Biometric fingerprint &amp; face login</li>
+            <li>&#10003; Mobile check deposit</li>
+            <li>&#10003; Card freeze/unfreeze on the go</li>
+            <li>&#10003; Live chat support 24/7</li>
+          </ul>
+          <div class="mobile-btns">
+            <span class="store-btn dark">&#63743; App Store</span>
+            <span class="store-btn">&#9654; Google Play</span>
+          </div>
+        </div>
+        <div class="mobile-mockup">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="ps-header">SECUREREFUND</div>
+              <div class="ps-balance">$24,580</div>
+              <div class="ps-txn"><div class="ps-icon send"></div><div><strong>Transfer Sent</strong><small>$450.00 to Emma W.</small></div><span class="ps-status done">Done</span></div>
+              <div class="ps-txn"><div class="ps-icon card"></div><div><strong>Card Generated</strong><small>VISA •••• 4892</small></div><span class="ps-status active">Active</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  FAQ                                                          -->
+  <!-- ============================================================ -->
+  <section class="section" id="faq">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">FAQ</span>
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><button class="faq-q">Is SecureRefund a real bank?<span class="faq-arrow">+</span></button><div class="faq-a"><p>SecureRefund is a demo fintech banking platform showcasing enterprise-grade banking features. It does not provide real banking services unless integrated with licensed financial infrastructure.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Are the virtual cards real?<span class="faq-arrow">+</span></button><div class="faq-a"><p>No. All virtual cards are for demonstration purposes only. They simulate real card functionality but cannot be used for actual payments.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Is my data secure?<span class="faq-arrow">+</span></button><div class="faq-a"><p>Yes. The platform uses JWT authentication, bcrypt password hashing, CSRF protection, rate limiting, and follows banking-grade security best practices.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Can I make real transfers?<span class="faq-arrow">+</span></button><div class="faq-a"><p>Transfers on the platform are simulated for demonstration. Real financial transactions require integration with licensed payment processors and banking partners.</p></div></div>
+        <div class="faq-item"><button class="faq-q">What currencies are supported?<span class="faq-arrow">+</span></button><div class="faq-a"><p>The demo platform supports USD by default, with the architecture ready for multi-currency support including EUR, GBP, and cryptocurrency integrations.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!--  FOOTER                                                       -->
+  <!-- ============================================================ -->
+  <footer class="footer" id="contact">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo" style="margin-bottom:1rem">
+            <div class="logo-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span>Secure<span class="logo-accent">Refund</span></span>
+          </div>
+          <p>Modern digital banking platform for the connected world.</p>
+          <div class="social-icons">
+            <a href="#" aria-label="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col"><h4>Products</h4><a href="#">Virtual Cards</a><a href="#">Transfers</a><a href="#">Multi-Currency</a><a href="#">Analytics</a><a href="#">Admin Panel</a></div>
+        <div class="footer-col"><h4>Company</h4><a href="#">About Us</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Blog</a><a href="#">Partners</a></div>
+        <div class="footer-col"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a><a href="#">GDPR</a><a href="#">Compliance</a></div>
+        <div class="footer-col"><h4>Support</h4><a href="#">Help Center</a><a href="#">Contact Us</a><a href="#">Live Chat</a><a href="#">Developer API</a><a href="#">Status</a></div>
+      </div>
+      <div class="footer-bottom">
+        <p>This platform is a demo fintech banking system and does not provide real banking services unless integrated with licensed financial infrastructure.</p>
+        <p>&copy; 2026 SecureRefund Bank. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

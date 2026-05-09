@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: srb_user
+      POSTGRES_PASSWORD: srb_password
+      POSTGRES_DB: secure_refund_bank
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U srb_user']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '4000:4000'
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - DATABASE_URL=postgresql://srb_user:srb_password@postgres:5432/secure_refund_bank
+      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-change-me-in-production}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:-change-me-exactly-32-characters!!}
+      - CORS_ORIGIN=${CORS_ORIGIN:-https://your-frontend-domain.com}
+      - COOKIE_SECRET=${COOKIE_SECRET:-change-me-cookie-secret}
+      - CSRF_SECRET=${CSRF_SECRET:-change-me-csrf-secret}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+      - PLAID_CLIENT_ID=${PLAID_CLIENT_ID}
+      - PLAID_SECRET=${PLAID_SECRET}
+      - PLAID_ENV=${PLAID_ENV:-sandbox}
+      - WISE_API_KEY=${WISE_API_KEY}
+      - WISE_ENV=${WISE_ENV:-sandbox}
+      - WISE_PROFILE_ID=${WISE_PROFILE_ID}
+      - AML_THRESHOLD=10000
+      - KYC_PROVIDER=INTERNAL
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:
