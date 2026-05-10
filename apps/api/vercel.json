@@ -1,15 +1,6 @@
 {
-  "installCommand": "npx pnpm@9 install --no-frozen-lockfile --filter @srb/api && rm -rf apps/api/node_modules/@srb/database apps/api/node_modules/@srb/shared && cp -r packages/database apps/api/node_modules/@srb/database && cp -r packages/shared apps/api/node_modules/@srb/shared",
+  "installCommand": "npx pnpm@9 install --no-frozen-lockfile --filter @srb/api",
   "buildCommand": "npx prisma generate --schema=packages/database/prisma/schema.prisma && cd packages/database && npx tsc && cd ../shared && npx tsc",
-  "builds": [
-    {
-      "src": "apps/api/api/index.ts",
-      "use": "@vercel/node",
-      "config": {
-        "nodeBundler": "esbuild"
-      }
-    }
-  ],
   "routes": [
     { "src": "/api/(.*)", "dest": "apps/api/api/index.ts" }
   ]
