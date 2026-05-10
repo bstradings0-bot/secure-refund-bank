@@ -1,7 +1,7 @@
 {
   "installCommand": "npx pnpm@9 install --no-frozen-lockfile --filter @srb/api",
   "buildCommand": "npx prisma generate --schema=packages/database/prisma/schema.prisma && cd packages/database && npx tsc && cd ../shared && npx tsc",
-  "framework": null,
+  "framework": "other",
   "routes": [
     { "src": "/api/(.*)", "dest": "apps/api/api/index.ts" }
   ]
