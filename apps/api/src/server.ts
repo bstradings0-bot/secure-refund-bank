@@ -108,11 +108,14 @@ app.use('/api', healthRoutes);
 // Error handler
 app.use(errorHandler);
 
-// Start server
-httpServer.listen(env.PORT, () => {
-  console.log(`SecureRefund Bank API running on port ${env.PORT}`);
-  console.log(`Environment: ${env.NODE_ENV}`);
-  console.log(`CORS origin: ${env.CORS_ORIGIN}`);
-});
+// Start server only in non-serverless environments
+const IS_SERVERLESS = process.env.VERCEL === '1';
+if (!IS_SERVERLESS) {
+  httpServer.listen(env.PORT, () => {
+    console.log(`SecureRefund Bank API running on port ${env.PORT}`);
+    console.log(`Environment: ${env.NODE_ENV}`);
+    console.log(`CORS origin: ${env.CORS_ORIGIN}`);
+  });
+}
 
 export { app, httpServer, io };
