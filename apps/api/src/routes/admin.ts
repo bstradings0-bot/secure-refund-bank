@@ -10,7 +10,7 @@ import { Role } from '@srb/shared';
 import { z } from 'zod';
 import prisma from '@srb/database';
 
-const router = Router();
+const router: Router = Router();
 
 /* ================================================================
    ADMIN AUTH — PUBLIC (no auth required)

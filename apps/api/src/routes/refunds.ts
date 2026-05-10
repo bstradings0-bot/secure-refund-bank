@@ -3,7 +3,7 @@ import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { refundService } from '../services/refund.service';
 import { z } from 'zod';
 
-const router = Router();
+const router: Router = Router();
 router.use(authMiddleware);
 
 // Submit a refund request for a received transaction

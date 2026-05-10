@@ -3,7 +3,7 @@ import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { kycService } from '../services/kyc.service';
 import { z } from 'zod';
 
-const router = Router();
+const router: Router = Router();
 
 // All KYC routes require authentication
 router.use(authMiddleware);

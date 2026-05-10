@@ -3,7 +3,7 @@ import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { accountService } from '../services/account.service';
 import prisma from '@srb/database';
 
-const router = Router();
+const router: Router = Router();
 router.use(authMiddleware);
 
 router.get('/', async (req: AuthRequest, res: Response) => {

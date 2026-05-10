@@ -3,7 +3,7 @@ import { authService } from '../services/auth.service';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { z } from 'zod';
 
-const router = Router();
+const router: Router = Router();
 
 const registerSchema = z.object({
   email: z.string().email('Invalid email format'),

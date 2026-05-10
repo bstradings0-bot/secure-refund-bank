@@ -80,7 +80,7 @@ export default function TransactionsPage() {
       tx.status,
       new Date(tx.timestamp || tx.createdAt).toISOString(),
     ]);
-    const csv = [headers, ...rows].map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+    const csv = [headers, ...rows].map((r: string[]) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

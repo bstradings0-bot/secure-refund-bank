@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import prisma from '@srb/database';
 
-const router = Router();
+const router: Router = Router();
 
 /**
  * GET /api/health

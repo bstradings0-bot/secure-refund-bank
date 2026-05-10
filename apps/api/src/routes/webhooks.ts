@@ -3,7 +3,7 @@ import { stripeService } from '../services/stripe.service';
 import { plaidService } from '../services/plaid.service';
 import { wiseService } from '../services/wise.service';
 
-const router = Router();
+const router: Router = Router();
 
 /**
  * Stripe webhook — requires raw body for signature verification.

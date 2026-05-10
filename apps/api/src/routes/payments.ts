@@ -4,7 +4,7 @@ import { paymentService } from '../services/payment.service';
 import { plaidService } from '../services/plaid.service';
 import { z } from 'zod';
 
-const router = Router();
+const router: Router = Router();
 
 router.use(authMiddleware);
 

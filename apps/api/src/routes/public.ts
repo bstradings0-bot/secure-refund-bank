@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import prisma from '@srb/database';
 
-const router = Router();
+const router: Router = Router();
 
 /* ================================================================
    PUBLIC CONTACT FORM

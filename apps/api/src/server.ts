@@ -20,7 +20,7 @@ import publicRoutes from './routes/public';
 import healthRoutes from './routes/health';
 import { refundService } from './services/refund.service';
 
-const app = express();
+const app: express.Application = express();
 const httpServer = createServer(app);
 
 // Initialize Socket.io

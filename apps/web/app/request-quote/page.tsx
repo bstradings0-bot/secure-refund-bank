@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiSend, FiCheck, FiBuilding, FiUsers, FiClock, FiDollarSign, FiBriefcase } from 'react-icons/fi';
+import { FiSend, FiCheck, FiBriefcase, FiUsers, FiClock, FiDollarSign } from 'react-icons/fi';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 
@@ -55,7 +55,7 @@ export default function RequestQuotePage() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { icon: FiBuilding, title: 'Dedicated Account Manager', desc: 'Personal point of contact for your organization' },
+              { icon: FiBriefcase, title: 'Dedicated Account Manager', desc: 'Personal point of contact for your organization' },
               { icon: FiUsers, title: 'Volume Discounts', desc: 'Save more as your transaction volume grows' },
               { icon: FiClock, title: 'Priority Processing', desc: 'Expedited transfers and support resolution' },
               { icon: FiBriefcase, title: 'Custom Integration', desc: 'Tailored API access and white-label options' },

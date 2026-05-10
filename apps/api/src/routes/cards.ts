@@ -4,7 +4,7 @@ import { cardService } from '../services/card.service';
 import { z } from 'zod';
 import { CardType } from '@srb/shared';
 
-const router = Router();
+const router: Router = Router();
 router.use(authMiddleware);
 
 const createCardSchema = z.object({

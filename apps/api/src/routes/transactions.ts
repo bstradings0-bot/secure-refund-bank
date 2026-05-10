@@ -4,7 +4,7 @@ import { transactionService } from '../services/transaction.service';
 import { z } from 'zod';
 import { TransactionType } from '@srb/shared';
 
-const router = Router();
+const router: Router = Router();
 router.use(authMiddleware);
 
 const transferSchema = z.object({
