@@ -1,6 +1,14 @@
 {
-  "installCommand": "npx pnpm@9 install --no-frozen-lockfile",
+  "rootDirectory": ".",
+  "installCommand": "npx pnpm@9 install --no-frozen-lockfile --filter @srb/api",
+  "buildCommand": "npx prisma generate --schema=packages/database/prisma/schema.prisma",
+  "builds": [
+    {
+      "src": "apps/api/api/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "api/index.ts" }
+    { "src": "/api/(.*)", "dest": "apps/api/api/index.ts" }
   ]
 }
