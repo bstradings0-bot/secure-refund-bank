@@ -1,11 +1,5 @@
 {
   "installCommand": "npx pnpm@9 install --no-frozen-lockfile",
-  "builds": [
-    {
-      "src": "api/index.ts",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
     { "src": "/api/(.*)", "dest": "api/index.ts" }
   ]
