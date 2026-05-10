@@ -89,7 +89,8 @@ export default function AdminUsersPage() {
     const handleBalanceUpdate = (data: { balance: number; userId?: string }) => {
       // If userId is provided, update that user; otherwise invalidate query
       if (data.userId) {
-        setLiveBalances((prev) => ({ ...prev, [data.userId]: data.balance }));
+        const userId = data.userId as string;
+        setLiveBalances((prev) => ({ ...prev, [userId]: data.balance }));
       }
       queryClient.invalidateQueries({ queryKey: ['admin-users'] });
     };
