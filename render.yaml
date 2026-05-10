@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: srb-api
+    env: node
+    region: oregon
+    branch: main
+    buildCommand: npx pnpm install --frozen-lockfile && npx pnpm --filter @srb/api run build
+    startCommand: cd apps/api && node dist/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      - key: NODE_ENV
+        value: production
