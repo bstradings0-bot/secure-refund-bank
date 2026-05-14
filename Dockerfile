@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 
 # Install all dependencies (no --production flag - we need devDeps for build)
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 # Generate Prisma client
 RUN cd packages/database && npx prisma generate
