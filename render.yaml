@@ -1,18 +1,28 @@
 services:
   - type: web
     name: srb-api
-    env: node
-    region: oregon
-    branch: main
-    buildCommand: npx pnpm install --frozen-lockfile && npx pnpm --filter @srb/api run build
-    startCommand: cd apps/api && node dist/server.js
-    healthCheckPath: /api/health
+    env: docker
+    rootDir: .
+    dockerfilePath: ./Dockerfile
+    dockerCommand: node apps/api/dist/server.js
     envVars:
       - key: DATABASE_URL
         sync: false
       - key: JWT_SECRET
         sync: false
-      - key: CORS_ORIGIN
+      - key: JWT_REFRESH_SECRET
         sync: false
+      - key: COOKIE_SECRET
+        sync: false
+      - key: ENCRYPTION_KEY
+        sync: false
+      - key: CSRF_SECRET
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://srb-banking-new.vercel.app
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 4000
+    healthCheckPath: /api/health
+    autoDeploy: true
