@@ -11,6 +11,9 @@ RUN pnpm install --no-frozen-lockfile
 # Generate Prisma client
 RUN cd packages/database && npx prisma generate
 
+# Build workspace packages first
+RUN pnpm --filter @srb/database build && pnpm --filter @srb/shared build
+
 # Build the API
 RUN pnpm --filter @srb/api build
 
